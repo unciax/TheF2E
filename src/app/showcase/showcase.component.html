@@ -1,0 +1,19 @@
+<div class="ts vertically padded heading slate">
+    <div class="ts narrow container">
+        <span class="header">The F2E Practice Showcase</span>
+        <span class="description">請選擇你要觀看的作品</span>
+    </div>
+</div>
+<p>&nbsp;</p>
+<div class="ts narrow container">
+    <div class="ts stackable three cards">
+        <div *ngFor="let case of caseModels;" class="ts card" (click)="open(case.code)">
+            <div class="content">
+                <div class="header">{{ case.subject }}</div>
+                <div class="meta">
+                    <a>Week {{ case.week }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

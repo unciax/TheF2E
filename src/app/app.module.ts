@@ -3,11 +3,13 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
+import { ShowCaseComponent } from './showcase/showcase.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ShowCaseComponent
   ],
   imports: [
     BrowserModule
