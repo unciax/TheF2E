@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { ShowCaseModel } from './showcase-model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'showcase',
@@ -7,6 +8,8 @@ import { ShowCaseModel } from './showcase-model';
   styleUrls: ['./showcase.component.css']
 })
 export class ShowCaseComponent {
+
+    constructor(@Inject(Router) private router: Router) { }
     
     public caseModels: ShowCaseModel[] = [];
 
@@ -19,6 +22,6 @@ export class ShowCaseComponent {
     }
 
     public open(code: string) {
-        console.log(code);
+        this.router.navigate(['/' + code]);
     }
 }
