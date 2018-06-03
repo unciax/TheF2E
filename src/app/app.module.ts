@@ -14,21 +14,21 @@ import { SignupCheckComponent } from './week0-signup-check/signup-check.componen
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ShowCaseComponent,
-    SignupCheckComponent
-  ],
-  imports: [
-    BrowserModule,
-    HttpModule,
-    FormsModule,
-    AppRoutingModule
-  ],
-  providers: [
-    ApiConfigService,
-    HttpRequestService
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        ShowCaseComponent,
+        SignupCheckComponent
+    ],
+    imports: [
+        BrowserModule,
+        HttpModule,
+        FormsModule,
+        AppRoutingModule
+    ],
+    providers: [
+        ApiConfigService,
+        HttpRequestService
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
