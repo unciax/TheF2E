@@ -2,6 +2,9 @@ import { Component, Inject, ViewChild, ElementRef, Renderer2 } from '@angular/co
 import { HttpRequestService } from '../shared-service/http-request.service';
 import { ApiConfigService } from '../shared-service/api-config.service';
 import { SignUpStatusModel } from './signup-status-model';
+import * as moment from 'moment';
+import 'moment/locale/zh-tw';
+
 
 @Component({
   selector: 'signup-check',
@@ -16,21 +19,34 @@ export class SignupCheckComponent {
 
     @ViewChild("pLoader") pageLoader: ElementRef;
 
+    @ViewChild("checkBtn") checkButton: ElementRef; 
+
     public signupCount: number = 0;
     
     public email: string = "";
 
     public status: SignUpStatusModel;
 
-    ngOnInit() {
-        this.getSignupCountFromApi();
+    public RemainingTime: string;
+
+    ngAfterViewInit() {
+        this.getSignupCountFromApi(this);
+        this.calcuateRemainingTime();
+        setInterval(() => {this.getSignupCountFromApi(this);}, 1000 * 60 * 10);
+        if (this.isGameStart()) {
+            this.RemainingTime = "已經開賽囉~~~";
+        } else {
+            setInterval(() => {this.RemainingTime = this.calcuateRemainingTime();}, 1000);
+        }
     }
 
     public checkStatusFromApi() {
 
+        this.status = null;
+
         if (this.email != null && this.email.length != 0) {
 
-            this.showDimmer();
+            this.renderer.addClass(this.checkButton.nativeElement, "loading");
 
             var data = { email: this.email };
 
@@ -42,23 +58,23 @@ export class SignupCheckComponent {
                     console.log(error);
                 },
                 () => {
-                    this.hideDimmer();
+                    this.renderer.removeClass(this.checkButton.nativeElement, "loading");
                 }
             )
         }
     }
 
-    public getSignupCountFromApi() {
-        this.showDimmer();
-        this.httpService.httpGet(this.apiConfig.signUpCount).subscribe(
+    public getSignupCountFromApi(ref: any) {
+        ref.showDimmer();
+        ref.httpService.httpGet(ref.apiConfig.signUpCount).subscribe(
             result => {
-                this.signupCount = result.total;
+                ref.signupCount = result.total;
             },
             error => {
                 console.log(error);
             },
             () => {
-                this.hideDimmer();
+                ref.hideDimmer();
             }
         )
     }
@@ -69,6 +85,35 @@ export class SignupCheckComponent {
 
     private hideDimmer() { 
         this.renderer.removeClass(this.pageLoader.nativeElement, "active");
-     }
+    }
+
+    private isGameStart() {
+        let now = moment();
+        let gameStartDate = moment('2018-06-04 12:00:00');
+        if (now > gameStartDate) {
+            return true;
+        }
+        return false;
+    }
+
+    private calcuateRemainingTime() {
+        let now = moment();
+        let gameStartDate = moment('2018-06-04 12:00:00');
+        let diff = moment.duration(gameStartDate.diff(now));
+        let outputString = "距離開賽還有";
+        if (diff.days() > 0) {
+            outputString += (" " + diff.days() + " 天"); 
+        }
+        if (diff.hours() > 0) {
+            outputString += (" " + diff.hours() + " 小時"); 
+        }
+        if (diff.minutes() > 0) {
+            outputString += (" " + diff.minutes() + " 分"); 
+        }
+        if (diff.seconds() > 0) {
+            outputString += (" " + diff.seconds() + " 秒"); 
+        }
+        return outputString;
+    }
 
 }

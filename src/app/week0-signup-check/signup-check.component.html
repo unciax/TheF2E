@@ -2,7 +2,7 @@
     <div class="ts vertically padded heading slate">
         <div class="ts narrow container">
             <span class="header">The F2E - 前端修練精神時光屋</span>
-            <span class="description">目前已有 {{signupCount}} 位挑戰者</span>
+            <span class="description">目前已有 {{ signupCount }} 位挑戰者，{{ this.RemainingTime }}</span>
         </div>
     </div>
     <p>&nbsp;</p>
@@ -16,7 +16,7 @@
                             <input type="email" placeholder="請輸入報名時填寫的信箱" [(ngModel)]="email">
                         </div>
                         <div class="four wide field">
-                            <button class="ts primary labeled icon button" (click)="checkStatusFromApi()">
+                            <button class="ts primary labeled icon button" (click)="checkStatusFromApi()" #checkBtn>
                                 <i class="search icon"></i>查詢
                             </button>
                         </div>
@@ -24,11 +24,15 @@
                 </div>
             </div>
         </div>
-        <div class="ts centered inverted card" *ngIf="status" [ngClass]="status.success ? 'positive' : 'warning'">
-            <div class="content">
-                <div class="header">{{ status.message }}</div>
-                <div class="description"></div>
-            </div>
+        <div class="ts centered segment" *ngIf="status" [ngClass]="status.success ? 'positive' : 'warning'">
+            <b>{{ status.message }}</b>
+            <p *ngIf="status.success">
+                嗨，{{ status.nickName }}<br/>
+                你已於 {{ status.timeStamp  | date: 'yyyy-MM-dd hh:mm:ss'}} 報名成功 (報名組別： {{ status.skill }})
+            </p>
+            <p *ngIf="!status.success">
+                現在加入都不嫌晚，趕快來<a href="https://goo.gl/forms/MCibT77OJAVDXm0o1" target="_blank">報名</a>吧～
+            </p>
         </div>
     </div>
     <div class="ts dimmer" #pLoader>
