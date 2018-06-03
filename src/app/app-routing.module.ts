@@ -5,8 +5,8 @@ import { SignupCheckComponent } from './week0-signup-check/signup-check.componen
 
 const routes: Routes = [
     { path: '', redirectTo: 'showcase', pathMatch: 'full' },
-    { path: 'showcase', component: ShowCaseComponent },
-    { path: 'signup_check', component:SignupCheckComponent }
+    { path: 'showcase', component: ShowCaseComponent, data: {title: 'Showcase'} },
+    { path: 'signup_check', component:SignupCheckComponent, data: {title: 'Week 0: 檢查報名狀態'} }
 ];
 
 @NgModule({
