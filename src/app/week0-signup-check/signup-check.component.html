@@ -9,11 +9,11 @@
     <div class="ts narrow container">
         <div class="ts centered card">
             <div class="content">
-                <div class="ts form">
+                <div class="ts form" [formGroup]="checkForm">
                     <div class="inline fields">
-                        <div class="twelve wide field">
+                        <div class="twelve wide field" [ngClass]="checkForm.controls.email.touched && checkForm.invalid ? 'error' : ''">
                             <label>Email</label>
-                            <input type="email" placeholder="請輸入報名時填寫的信箱" [(ngModel)]="email">
+                            <input placeholder="請輸入報名時填寫的信箱" formControlName="email">
                         </div>
                         <div class="four wide field">
                             <button class="ts primary labeled icon button" (click)="checkStatusFromApi()" #checkBtn>
@@ -22,6 +22,7 @@
                         </div>
                     </div>
                 </div>
+                <span style="color: #CE5F58;" *ngIf="checkForm.controls.email.touched && checkForm.invalid">Email 格式錯誤或未填寫</span>
             </div>
         </div>
         <div class="ts centered segment" *ngIf="status" [ngClass]="status.success ? 'positive' : 'warning'">

@@ -4,6 +4,7 @@ import { ApiConfigService } from '../shared-service/api-config.service';
 import { SignUpStatusModel } from './signup-status-model';
 import * as moment from 'moment';
 import 'moment/locale/zh-tw';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 
 @Component({
@@ -22,12 +23,18 @@ export class SignupCheckComponent {
     @ViewChild("checkBtn") checkButton: ElementRef; 
 
     public signupCount: number = 0;
-    
-    public email: string = "";
 
     public status: SignUpStatusModel;
 
     public RemainingTime: string;
+
+    public checkForm: FormGroup;
+
+    ngOnInit() {
+        this.checkForm = new FormGroup({
+            email: new FormControl('', [Validators.required, Validators.email])
+        });
+    }
 
     ngAfterViewInit() {
         this.getSignupCountFromApi(this);
@@ -43,12 +50,11 @@ export class SignupCheckComponent {
     public checkStatusFromApi() {
 
         this.status = null;
-
-        if (this.email != null && this.email.length != 0) {
+        if (this.checkForm.valid) {
 
             this.renderer.addClass(this.checkButton.nativeElement, "loading");
 
-            var data = { email: this.email };
+            var data = { email: this.checkForm.controls.email.value };
 
             this.httpService.httpPost(this.apiConfig.checkSignUpStatus, data).subscribe(
                 result => {
@@ -61,6 +67,8 @@ export class SignupCheckComponent {
                     this.renderer.removeClass(this.checkButton.nativeElement, "loading");
                 }
             )
+        } else {
+            this.checkForm.controls.email.markAsTouched();
         }
     }
 
