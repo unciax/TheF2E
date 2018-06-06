@@ -1,0 +1,20 @@
+.page.top.margin {
+    margin-top: 10px;
+}
+.card > .content > .header {
+    margin-top: 15px;
+}
+
+.ts.link.button {
+    color: #5a5a5a;
+}
+
+.ts.card.star div,
+.ts.card.star .icon.star {
+    color: #E99211;
+}
+
+.ts.card.star.positive div,
+.ts.card.star.positive .icon:not(.star) {
+    color: #C1D9B1;
+}

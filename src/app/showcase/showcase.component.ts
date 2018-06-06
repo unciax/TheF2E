@@ -18,6 +18,10 @@ export class ShowCaseComponent {
             week: 0,
             subject: "報名狀態檢查",
             code: "signup_check"
+        },{
+            week: 1,
+            subject: "待辦清單",
+            code: "todo_list"
         }];
     }
 
