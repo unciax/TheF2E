@@ -12,6 +12,16 @@ export class TodoListComponent {
 
     public items: TodoListModel[];
 
+    public mode: 'List' | 'Add' | 'Edit' = 'List';
+
+    public editItem: TodoListModel;
+
+    public allTasksCount: number = 0;
+
+    public inProgressTasksCount: number = 0;
+
+    public completedTasksCount: number = 0;
+
     ngOnInit() {
         this.items = [{
             id: "1",
@@ -35,15 +45,29 @@ export class TodoListComponent {
             deadline: null,
             files: [],
             comment: "",
-            star: true,
+            star: false,
             complete: true
         }]
+        this.updateTasksCount();
     }
 
     ngAfterViewInit() {
 
     }
 
+    public updateTasksCount() {
+        this.allTasksCount = this.items.length;
+        this.completedTasksCount = this.items.filter(task => task.complete).length;
+        this.inProgressTasksCount = this.allTasksCount - this.completedTasksCount;
+    }
 
+    public addTask() {
+        this.mode = "Add";
+        this.editItem = new TodoListModel();
+    }
+
+    public editTask(id: string) {
+        this.mode = "Edit";
+    }
 
 }
