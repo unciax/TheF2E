@@ -1,32 +1,22 @@
 <div class="cover-all">
-    <div class="page top margin">&nbsp;</div>
-    <div class="ts narrow container">
-        <div class="ts stackable grid">
-            <div class="stretched column">
-                <h1>TODO List</h1>
-            </div>
-            <div class="column">
-                <button class="ts small primary labeled icon button">
-                    <i class="plus icon"></i>
-                    Add Task
-                </button>
-            </div>
-            <div class="sixteen wide column">
-                <div class="ts pointing secondary horizontally scrollable menu">
-                    <a class="active item">Tasks (10)</a>
-                    <a class="item">In Progress (5)</a>
-                    <a class="item">Completed (5)</a>
-                </div>
-            </div>          
-        </div> 
-    </div>
-    <p>&nbsp;</p>
-    <div class="ts narrow container">
+    <div class="top margin">&nbsp;</div>
+    <div *ngIf="mode == 'List'" class="ts narrow container">
+        <div class="ts pointing secondary horizontally scrollable menu">
+            <a class="active item">Tasks ({{ allTasksCount }})</a>
+            <a class="item">In Progress ({{ inProgressTasksCount }})</a>
+            <a class="item">Completed ({{ completedTasksCount }})</a>
+        </div>
+        <button class="ts small secondary labeled icon button" (click)="addTask()">
+            <i class="plus icon"></i>
+            Add Task
+        </button>
+        <div class="top margin">&nbsp;</div>
         <div class="ts stackable three cards">
+            
             <div *ngFor="let item of items" class="ts card" [ngClass]="{'star' : item.star, 'positive' : item.complete}">
                 <div class="content">
                     <div class="actions">
-                        <div class="ts separated secondary icon buttons">
+                        <div class="ts separated secondary compact icon buttons">
                             <button class="ts button">
                                 <i class="icon star" [ngClass]="item.star ? '' : 'empty'"></i>
                             </button>
@@ -38,21 +28,23 @@
                             </button>
                         </div>
                     </div>
-                    <div class="ts separated secondary icon buttons">
-                        <button class="ts link button">
-                            <i class="icon " [ngClass]="item.complete ? 'checkmark box' : 'square outline'"></i>
-                        </button>
+                    <div class="ts checkbox">
+                        <input type="checkbox" [id]="'tasks_' + item.id" [checked]="item.complete" (change)="item.complete = !item.complete; updateTasksCount();">
+                        <label [for]="'tasks_' + item.id"></label>
                     </div>
                     <div class="header">{{ item.title }}</div>
                 </div>
                 <div class="extra content">
                     <span *ngIf="item.deadline"><i class="icon calendar"></i>{{ item.deadline | date:'yyyy-MM-dd' }}</span>
-                    <span *ngIf="!item.deadline"><i class="icon calendar"></i>未設定日期</span>
+                    <span *ngIf="!item.deadline"><i class="icon calendar"></i>Deadline not set.</span>
                     <span *ngIf="item.files.length != 0"><i class="icon file outline"></i></span>
                     <span *ngIf="item.comment"><i class="icon conversation"></i></span>
                 </div>
             </div>
         </div>
+    </div>
+    <div *ngIf="mode != 'List'" class="ts narrow container">
+
     </div>
     <p>&nbsp;</p>
     <div class="ts dimmer" #pLoader>

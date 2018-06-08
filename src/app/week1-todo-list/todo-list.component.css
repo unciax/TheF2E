@@ -1,8 +1,19 @@
-.page.top.margin {
-    margin-top: 10px;
+.top.margin {
+    margin-top: 0.75em;
 }
 .card > .content > .header {
-    margin-top: 15px;
+    margin-top: 1.5em;
+}
+
+.ts.checkbox:not(.radio) label::before {
+    width: 18px;
+    height: 18px;
+}
+
+.ts.card:hover {
+    z-index: 3;
+    box-shadow: 0px 1px 2px 0px #BCBDBD;
+    transform: translateY(-2px);
 }
 
 .ts.link.button {
@@ -14,7 +25,11 @@
     color: #E99211;
 }
 
-.ts.card.star.positive div,
-.ts.card.star.positive .icon:not(.star) {
-    color: #C1D9B1;
+.ts.card.positive .header,
+.ts.card.positive .extra.content span {
+    text-decoration: line-through;
+}
+
+.ts.card.positive .extra.content i {
+    text-decoration: none;
 }
