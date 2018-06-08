@@ -44,7 +44,40 @@
         </div>
     </div>
     <div *ngIf="mode != 'List'" class="ts narrow container">
-
+        <div class="ts form">
+            <div class="field">
+                <label>Task name</label>
+                <input type="text" placeholder="Type Something Here…">
+            </div>
+            <div class="field">
+                <label><i class="icon calendar"></i>Deadline</label>
+                <div class="two fields">
+                    <div class="field">
+                        <input type="date">
+                    </div>
+                    <div class="field">
+                        <input type="time">
+                    </div>
+                </div>
+            </div>
+            <div class="field">
+                <label><i class="icon file outline"></i>Attachment</label>
+                <input type="file">
+            </div>
+            <div class="resizable field">
+                <label><i class="icon comments outline"></i>Comment</label>
+                <textarea placeholder="Type your memo here…"></textarea>
+            </div>
+        </div>
+        <div class="top margin">&nbsp;</div>
+        <button class="ts small primary labeled icon button" (click)="exitModifyMode('Save')">
+            <i class="save icon"></i>
+            Save
+        </button>
+        <button class="ts small labeled icon button" (click)="exitModifyMode('Cancel')">
+            <i class="cancel icon"></i>
+            Cancel
+        </button>
     </div>
     <p>&nbsp;</p>
     <div class="ts dimmer" #pLoader>

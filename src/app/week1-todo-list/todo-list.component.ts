@@ -70,4 +70,11 @@ export class TodoListComponent {
         this.mode = "Edit";
     }
 
+    public exitModifyMode(action: "Save" | "Cancel") {
+        if (action == "Save") {
+            // TODO: Call update task list
+        }
+        this.mode = "List";
+    }
+
 }
