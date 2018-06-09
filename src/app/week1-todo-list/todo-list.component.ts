@@ -12,7 +12,11 @@ export class TodoListComponent {
 
     public items: TodoListModel[];
 
+    public filterItems: TodoListModel[];
+
     public mode: 'List' | 'Add' | 'Edit' = 'List';
+
+    public currentTab: 'All' | 'InProgress' | 'Completed' = 'All';
 
     public editItem: TodoListModel;
 
@@ -48,6 +52,7 @@ export class TodoListComponent {
             star: false,
             complete: true
         }]
+        this.filterItems = this.items;
         this.updateTasksCount();
     }
 
@@ -75,6 +80,31 @@ export class TodoListComponent {
             // TODO: Call update task list
         }
         this.mode = "List";
+    }
+
+    public changeTaskStarStatus(id: string) {
+        let item = this.items.find(x => x.id === id);
+        item.star = !item.star;
+    }
+
+    public changeTaskCompletedStatus(id: string) {
+        let item = this.items.find(x => x.id === id);
+        item.complete = !item.complete;
+        this.updateTasksCount();
+    }
+
+    public filterTask(status: 'All' | 'InProgress' | 'Completed') {
+        
+        this.currentTab = status;
+
+        // filter tasks
+        if (status === "All") {
+            this.filterItems = this.items.slice();
+        } else if (status === "InProgress") {
+            this.filterItems = this.items.filter(x => !x.complete);
+        } else {
+            this.filterItems = this.items.filter(x => x.complete);
+        }
     }
 
 }

@@ -2,9 +2,15 @@
     <div class="top margin">&nbsp;</div>
     <div *ngIf="mode == 'List'" class="ts narrow container">
         <div class="ts pointing secondary horizontally scrollable menu">
-            <a class="active item">Tasks ({{ allTasksCount }})</a>
-            <a class="item">In Progress ({{ inProgressTasksCount }})</a>
-            <a class="item">Completed ({{ completedTasksCount }})</a>
+            <a class="item" [ngClass]="{'active' : currentTab === 'All'}" (click)="filterTask('All')">
+                Tasks ({{ allTasksCount }})
+            </a>
+            <a class="item" [ngClass]="{'active' : currentTab === 'InProgress'}" (click)="filterTask('InProgress')">
+                In Progress ({{ inProgressTasksCount }})
+            </a>
+            <a class="item" [ngClass]="{'active' : currentTab === 'Completed'}" (click)="filterTask('Completed')">
+                Completed ({{ completedTasksCount }})
+            </a>
         </div>
         <button class="ts small secondary labeled icon button" (click)="addTask()">
             <i class="plus icon"></i>
@@ -13,12 +19,12 @@
         <div class="top margin">&nbsp;</div>
         <div class="ts stackable three cards">
             
-            <div *ngFor="let item of items" class="ts card" [ngClass]="{'star' : item.star, 'positive' : item.complete}">
+            <div *ngFor="let item of filterItems" class="ts card" [ngClass]="{'star' : item.star, 'positive' : item.complete}">
                 <div class="content">
                     <div class="actions">
                         <div class="ts separated secondary compact icon buttons">
-                            <button class="ts button">
-                                <i class="icon star" [ngClass]="item.star ? '' : 'empty'"></i>
+                            <button class="ts button" (click)="changeTaskStarStatus(item.id)">
+                                <i class="icon star" [ngClass]="item.star ? '' : 'empty'" ></i>
                             </button>
                             <button *ngIf="!item.complete" class="ts button">
                                 <i class="icon edit"></i>
@@ -29,7 +35,7 @@
                         </div>
                     </div>
                     <div class="ts checkbox">
-                        <input type="checkbox" [id]="'tasks_' + item.id" [checked]="item.complete" (change)="item.complete = !item.complete; updateTasksCount();">
+                        <input type="checkbox" [id]="'tasks_' + item.id" [checked]="item.complete" (change)="changeTaskCompletedStatus(item.id)">
                         <label [for]="'tasks_' + item.id"></label>
                     </div>
                     <div class="header">{{ item.title }}</div>
