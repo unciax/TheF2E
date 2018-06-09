@@ -21,7 +21,8 @@
 }
 
 .ts.card.star div,
-.ts.card.star .icon.star {
+.ts.card.star .icon.star,
+.ts.form .icon.star:not(.empty) {
     color: #E99211;
 }
 

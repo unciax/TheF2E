@@ -1,5 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { DatePipe } from '@angular/common'
 import { TodoListModel } from './todo-list-model';
+import * as moment from 'moment';
+import 'moment/locale/zh-tw';
+
 
 @Component({
   selector: 'todo-list',
@@ -8,7 +13,7 @@ import { TodoListModel } from './todo-list-model';
 })
 export class TodoListComponent {
 
-    constructor() { }
+    constructor(@Inject(FormBuilder)private fb: FormBuilder) { }
 
     public items: TodoListModel[];
 
@@ -26,7 +31,19 @@ export class TodoListComponent {
 
     public completedTasksCount: number = 0;
 
+    public taskForm: FormGroup;
+
+    private dp: DatePipe;
+
     ngOnInit() {
+        this.dp = new DatePipe(navigator.language);
+        this.taskForm = this.fb.group({
+            taskName: ['', Validators.required],
+            taskStar: false,
+            taskDeadlineDate: new Date(),
+            taskDeadlineTime: new Date(),
+            taskComment: ''
+        });
         this.items = [{
             id: "1",
             title: "試著透過 Tocas UI 拉出版面",
@@ -69,15 +86,69 @@ export class TodoListComponent {
     public addTask() {
         this.mode = "Add";
         this.editItem = new TodoListModel();
+        this.bindValueToFormControl();
+        this.taskForm.reset();
     }
 
     public editTask(id: string) {
         this.mode = "Edit";
+        this.editItem = this.items.find(x => x.id === id);
+        this.bindValueToFormControl();
+    }
+
+    public removeTask(id: string) {
+        let index = this.items.findIndex(x => x.id === id);
+        if (index != -1) {
+            this.items.splice(index, 1);
+        }
+        this.filterTask(this.currentTab);
+        this.updateTasksCount();
+    }
+
+    private bindValueToFormControl() {
+        let model = this.editItem;
+        let controls = this.taskForm.controls;
+        controls.taskName.setValue(model.title);
+        controls.taskStar.setValue(model.star);
+        controls.taskComment.setValue(model.comment);
+        if (model.deadline) {
+            let dtr = this.dp.transform(model.deadline, 'y-MM-dd');
+            controls.taskDeadlineDate.setValue(dtr);
+            let ttr = this.dp.transform(model.deadline, 'HH:mm');
+            controls.taskDeadlineTime.setValue(ttr);
+        }
+        
+    }
+
+    private bindValueToModel() {
+        let model = this.editItem;
+        let controls = this.taskForm.controls;
+        model.title = controls.taskName.value;
+        model.star = controls.taskStar.value;
+        model.comment = controls.taskComment.value;
+        let newDeadline = moment(controls.taskDeadlineDate.value, "YYYY/MM/dd");
+        let timePart = moment(controls.taskDeadlineTime.value, "HH:mm");
+        newDeadline.hours(timePart.hours());
+        newDeadline.minutes(timePart.minutes());
+        model.deadline = newDeadline.toDate();
     }
 
     public exitModifyMode(action: "Save" | "Cancel") {
         if (action == "Save") {
             // TODO: Call update task list
+            if (!this.taskForm.valid) {
+                this.taskForm.controls.taskName.markAsTouched();
+                return;
+            }
+            this.bindValueToModel();
+            let index = this.items.findIndex(x => x.id === this.editItem.id);
+            if (index != -1) {
+                this.items.splice(index, 1);
+            }
+            this.items = this.items.concat(this.editItem);
+            this.filterTask(this.currentTab);
+            this.updateTasksCount();
+            
         }
         this.mode = "List";
     }
@@ -90,6 +161,7 @@ export class TodoListComponent {
     public changeTaskCompletedStatus(id: string) {
         let item = this.items.find(x => x.id === id);
         item.complete = !item.complete;
+        this.filterTask(this.currentTab);
         this.updateTasksCount();
     }
 

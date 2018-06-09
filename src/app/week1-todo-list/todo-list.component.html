@@ -26,10 +26,10 @@
                             <button class="ts button" (click)="changeTaskStarStatus(item.id)">
                                 <i class="icon star" [ngClass]="item.star ? '' : 'empty'" ></i>
                             </button>
-                            <button *ngIf="!item.complete" class="ts button">
+                            <button *ngIf="!item.complete" class="ts button" (click)="editTask(item.id)">
                                 <i class="icon edit"></i>
                             </button>
-                            <button *ngIf="!item.complete" class="ts button">
+                            <button *ngIf="!item.complete" class="ts button" (click)="removeTask(item.id)">
                                 <i class="icon remove"></i>
                             </button>
                         </div>
@@ -43,26 +43,36 @@
                 <div class="extra content">
                     <span *ngIf="item.deadline"><i class="icon calendar"></i>{{ item.deadline | date:'yyyy-MM-dd' }}</span>
                     <span *ngIf="!item.deadline"><i class="icon calendar"></i>Deadline not set.</span>
-                    <span *ngIf="item.files.length != 0"><i class="icon file outline"></i></span>
+                    <span *ngIf="item.files && item.files.length != 0"><i class="icon file outline"></i></span>
                     <span *ngIf="item.comment"><i class="icon conversation"></i></span>
                 </div>
             </div>
         </div>
     </div>
     <div *ngIf="mode != 'List'" class="ts narrow container">
-        <div class="ts form">
-            <div class="field">
-                <label>Task name</label>
-                <input type="text" placeholder="Type Something Here…">
+        <div class="ts form" [formGroup]="taskForm">
+            <div class="fields">
+                <div class="fifteen wide field" [ngClass]="taskForm.controls.taskName.touched && taskForm.invalid ? 'error' : ''">
+                    <label>Task name</label>
+                    <input placeholder="Type Something Here…" formControlName="taskName">
+                    <span style="color: #CE5F58;" *ngIf="taskForm.controls.taskName.touched && taskForm.invalid">Task name required.</span>
+                </div>
+                <div class="one wide field">
+                    <label>&nbsp;</label>
+                    <button class="ts secondary icon button" (click)="taskForm.controls.taskStar.setValue(!taskForm.controls.taskStar.value)">
+                        <i class="icon star" [ngClass]="taskForm.controls.taskStar.value ? '' : 'empty'" ></i>
+                    </button>
+                </div>
             </div>
+            
             <div class="field">
                 <label><i class="icon calendar"></i>Deadline</label>
                 <div class="two fields">
                     <div class="field">
-                        <input type="date">
+                        <input type="date" formControlName="taskDeadlineDate">
                     </div>
                     <div class="field">
-                        <input type="time">
+                        <input type="time" formControlName="taskDeadlineTime">
                     </div>
                 </div>
             </div>
@@ -72,7 +82,7 @@
             </div>
             <div class="resizable field">
                 <label><i class="icon comments outline"></i>Comment</label>
-                <textarea placeholder="Type your memo here…"></textarea>
+                <textarea placeholder="Type your memo here…" formControlName="taskComment"></textarea>
             </div>
         </div>
         <div class="top margin">&nbsp;</div>

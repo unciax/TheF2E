@@ -1,5 +1,7 @@
+import { v4 as uuid } from 'uuid';
+
 export class TodoListModel {
-    id: string;
+    id: string = uuid();
     title: string;
     deadline: Date;
     files: string[];
