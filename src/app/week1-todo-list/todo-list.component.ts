@@ -42,13 +42,14 @@ export class TodoListComponent {
             taskStar: false,
             taskDeadlineDate: new Date(),
             taskDeadlineTime: new Date(),
+            taskFile: '',
             taskComment: ''
         });
         this.items = [{
             id: "1",
             title: "試著透過 Tocas UI 拉出版面",
             deadline: new Date(),
-            files: [""],
+            file: "tocas.css",
             comment: "123",
             star: false,
             complete: false
@@ -56,7 +57,7 @@ export class TodoListComponent {
             id: "2",
             title: "測試看看被 star 的樣子，如果超過高度會發生什麼事情呢?",
             deadline: null,
-            files: [],
+            file: null,
             comment: "",
             star: true,
             complete: false
@@ -64,7 +65,7 @@ export class TodoListComponent {
             id: "3",
             title: "完成了，然後呢?",
             deadline: null,
-            files: [],
+            file: null,
             comment: "",
             star: false,
             complete: true
@@ -110,6 +111,7 @@ export class TodoListComponent {
         let controls = this.taskForm.controls;
         controls.taskName.setValue(model.title);
         controls.taskStar.setValue(model.star);
+        controls.taskFile.setValue(model.file);
         controls.taskComment.setValue(model.comment);
         if (model.deadline) {
             let dtr = this.dp.transform(model.deadline, 'y-MM-dd');
@@ -125,6 +127,7 @@ export class TodoListComponent {
         let controls = this.taskForm.controls;
         model.title = controls.taskName.value;
         model.star = controls.taskStar.value;
+        model.file = controls.taskFile.value;
         model.comment = controls.taskComment.value;
         let newDeadline = moment(controls.taskDeadlineDate.value, "YYYY/MM/dd");
         let timePart = moment(controls.taskDeadlineTime.value, "HH:mm");
@@ -177,6 +180,16 @@ export class TodoListComponent {
         } else {
             this.filterItems = this.items.filter(x => x.complete);
         }
+
+    }
+
+    public getFileName($event: any) {
+        let file = $event.target.files[0];
+        this.taskForm.controls.taskFile.setValue(file.name);
+    }
+
+    public removeFile() {
+        this.taskForm.controls.taskFile.setValue("");
     }
 
 }

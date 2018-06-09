@@ -43,7 +43,7 @@
                 <div class="extra content">
                     <span *ngIf="item.deadline"><i class="icon calendar"></i>{{ item.deadline | date:'yyyy-MM-dd' }}</span>
                     <span *ngIf="!item.deadline"><i class="icon calendar"></i>Deadline not set.</span>
-                    <span *ngIf="item.files && item.files.length != 0"><i class="icon file outline"></i></span>
+                    <span *ngIf="item.file"><i class="icon file outline"></i></span>
                     <span *ngIf="item.comment"><i class="icon conversation"></i></span>
                 </div>
             </div>
@@ -78,7 +78,14 @@
             </div>
             <div class="field">
                 <label><i class="icon file outline"></i>Attachment</label>
-                <input type="file">
+                <input type="file" *ngIf="!taskForm.controls.taskFile.value" (change)="getFileName($event)" >
+                <span *ngIf="taskForm.controls.taskFile.value">
+                    <button class="ts secondary mini very compact icon button" (click)="removeFile()">
+                        <i class="icon remove"></i>
+                    </button>
+                    <i class="icon file text"></i>
+                    {{ taskForm.controls.taskFile.value }}
+                </span>
             </div>
             <div class="resizable field">
                 <label><i class="icon comments outline"></i>Comment</label>

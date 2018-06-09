@@ -4,7 +4,7 @@ export class TodoListModel {
     id: string = uuid();
     title: string;
     deadline: Date;
-    files: string[];
+    file: string;
     comment: string;
     star: boolean;
     complete: boolean;
