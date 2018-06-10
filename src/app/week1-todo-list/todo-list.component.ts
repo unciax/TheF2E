@@ -15,9 +15,9 @@ export class TodoListComponent {
 
     constructor(@Inject(FormBuilder)private fb: FormBuilder) { }
 
-    public items: TodoListModel[];
+    public items: TodoListModel[] = [];
 
-    public filterItems: TodoListModel[];
+    public filterItems: TodoListModel[] = [];
 
     public mode: 'List' | 'Add' | 'Edit' = 'List';
 
@@ -74,10 +74,6 @@ export class TodoListComponent {
         this.updateTasksCount();
     }
 
-    ngAfterViewInit() {
-
-    }
-
     public updateTasksCount() {
         this.allTasksCount = this.items.length;
         this.completedTasksCount = this.items.filter(task => task.complete).length;
@@ -129,11 +125,23 @@ export class TodoListComponent {
         model.star = controls.taskStar.value;
         model.file = controls.taskFile.value;
         model.comment = controls.taskComment.value;
-        let newDeadline = moment(controls.taskDeadlineDate.value, "YYYY/MM/dd");
-        let timePart = moment(controls.taskDeadlineTime.value, "HH:mm");
-        newDeadline.hours(timePart.hours());
-        newDeadline.minutes(timePart.minutes());
-        model.deadline = newDeadline.toDate();
+        let newDeadline = null;
+        if (controls.taskDeadlineDate.value != "") {
+            newDeadline = moment(controls.taskDeadlineDate.value);
+        }
+
+        if (controls.taskDeadlineTime.value != "") {
+            let timePart = moment(controls.taskDeadlineTime.value, "HH:mm");
+            if (newDeadline === null) {
+                newDeadline = moment();
+            }
+            newDeadline.hour(timePart.hour());
+            newDeadline.minute(timePart.minute());
+        } else {
+            newDeadline.hour(0);
+            newDeadline.minute(0);
+        }
+        model.deadline = newDeadline ? newDeadline.toDate() : null;
     }
 
     public exitModifyMode(action: "Save" | "Cancel") {
