@@ -45,31 +45,7 @@ export class TodoListComponent {
             taskFile: '',
             taskComment: ''
         });
-        this.items = [{
-            id: "1",
-            title: "試著透過 Tocas UI 拉出版面",
-            deadline: new Date(),
-            file: "tocas.css",
-            comment: "123",
-            star: false,
-            complete: false
-        },{
-            id: "2",
-            title: "測試看看被 star 的樣子，如果超過高度會發生什麼事情呢?",
-            deadline: null,
-            file: null,
-            comment: "",
-            star: true,
-            complete: false
-        },{
-            id: "3",
-            title: "完成了，然後呢?",
-            deadline: null,
-            file: null,
-            comment: "",
-            star: false,
-            complete: true
-        }]
+        this.getFromLocalStorage();
         this.filterItems = this.items;
         this.updateTasksCount();
     }
@@ -159,7 +135,7 @@ export class TodoListComponent {
             this.items = this.items.concat(this.editItem);
             this.filterTask(this.currentTab);
             this.updateTasksCount();
-            
+            this.saveToLocalStorage();
         }
         this.mode = "List";
     }
@@ -167,11 +143,13 @@ export class TodoListComponent {
     public changeTaskStarStatus(id: string) {
         let item = this.items.find(x => x.id === id);
         item.star = !item.star;
+        this.saveToLocalStorage();
     }
 
     public changeTaskCompletedStatus(id: string) {
         let item = this.items.find(x => x.id === id);
         item.complete = !item.complete;
+        this.saveToLocalStorage();
         this.filterTask(this.currentTab);
         this.updateTasksCount();
     }
@@ -198,6 +176,14 @@ export class TodoListComponent {
 
     public removeFile() {
         this.taskForm.controls.taskFile.setValue("");
+    }
+
+    private saveToLocalStorage() {
+        localStorage.setItem("tasks", JSON.stringify(this.items));
+    }
+
+    private getFromLocalStorage() {
+        this.items = localStorage.getItem("tasks") ? JSON.parse(localStorage.getItem("tasks")) : [];
     }
 
 }
