@@ -17,8 +17,17 @@
             Add Task
         </button>
         <div class="top margin">&nbsp;</div>
+        <div *ngIf="filterItems.length === 0" class="ts basic borderless slate">
+            <i class="icon" [ngClass]="{'smile' : currentTab != 'Completed || items.length === 0', 'meh' : currentTab === 'Completed' && items.length > 0}"></i>
+            <span class="header">這邊什麼都沒有</span>
+            <span *ngIf="items.length === 0 || (currentTab === 'InProgress' && filterItems.length === 0)" class="description">
+                工作都順利完成了呢
+            </span>
+            <span *ngIf="currentTab === 'Completed' && items.length > 0" class="description">
+                是不是該加把勁工作了呢?
+            </span>
+        </div>
         <div class="ts stackable three cards">
-            
             <div *ngFor="let item of filterItems" class="ts card" [ngClass]="{'star' : item.star, 'positive' : item.complete}">
                 <div class="content">
                     <div class="actions">
