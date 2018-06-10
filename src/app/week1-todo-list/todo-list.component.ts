@@ -126,18 +126,18 @@ export class TodoListComponent {
         model.file = controls.taskFile.value;
         model.comment = controls.taskComment.value;
         let newDeadline = null;
-        if (controls.taskDeadlineDate.value != "") {
+        if (controls.taskDeadlineDate.value != "" && controls.taskDeadlineDate.value != null) {
             newDeadline = moment(controls.taskDeadlineDate.value);
         }
 
-        if (controls.taskDeadlineTime.value != "") {
+        if (controls.taskDeadlineTime.value != "" && controls.taskDeadlineTime.value != null) {
             let timePart = moment(controls.taskDeadlineTime.value, "HH:mm");
             if (newDeadline === null) {
                 newDeadline = moment();
             }
             newDeadline.hour(timePart.hour());
             newDeadline.minute(timePart.minute());
-        } else {
+        } else if (newDeadline != null) {
             newDeadline.hour(0);
             newDeadline.minute(0);
         }
