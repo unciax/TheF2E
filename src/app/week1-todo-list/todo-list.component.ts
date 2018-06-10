@@ -74,6 +74,7 @@ export class TodoListComponent {
         if (index != -1) {
             this.items.splice(index, 1);
         }
+        this.saveToLocalStorage();
         this.filterTask(this.currentTab);
         this.updateTasksCount();
     }
