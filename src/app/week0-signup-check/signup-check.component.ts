@@ -74,7 +74,7 @@ export class SignupCheckComponent {
 
     public getSignupCountFromApi(ref: any) {
         ref.showDimmer();
-        ref.httpService.httpGet(ref.apiConfig.signUpCount).subscribe(
+        ref.httpService.httpGetJson(ref.apiConfig.signUpCount).subscribe(
             result => {
                 ref.signupCount = result.total;
             },

@@ -3,26 +3,32 @@ import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/catch'
+import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class HttpRequestService {
 
     constructor(@Inject(Http)private http: Http) { }
 
-    public httpGet(url: string): Observable<any> {
-        return this.http.get(url, this.getRequestOptions())
+    public httpGetJson(url: string): Observable<any> {
+        return this.http.get(url, this.getRequestOptions("application/json"))
                         .map(this.toJson)
                         .catch(this.handleError);
     }
 
+    public httpGetXml(url: string): Observable<any> {
+        return this.http.get(url, this.getRequestOptions("text/xml"))
+                        .catch(this.handleError);
+    }
+
     public httpPost(url: string, data: any) {
-        return this.http.post(url, JSON.stringify(data), this.getRequestOptions())
+        return this.http.post(url, JSON.stringify(data), this.getRequestOptions("application/json"))
                         .map(this.toJson)
                         .catch(this.handleError);       
     }
 
-    private getRequestOptions(): RequestOptions {
-        let header = new Headers({ 'Content-Type': 'application/json' }); 
+    private getRequestOptions(type: string): RequestOptions {
+        let header = new Headers({ 'Content-Type': type }); 
         let options = new RequestOptions({headers: header});
 
         return options;
@@ -33,6 +39,7 @@ export class HttpRequestService {
     }
 
     private handleError(response: any) {
-        return Observable.throw(response.json() || "Something went worng");
+        console.log(response);
+        return Observable.throw(response);
     }
 }
