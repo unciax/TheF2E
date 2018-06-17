@@ -115,6 +115,5 @@ export class FilterComponent {
     public changePage(ref: any, page: number) {
         ref.currentPage = page;
         ref.filterAndPagging(ref);
-        console.log(ref.currentPage);
     }
 }

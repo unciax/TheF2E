@@ -10,7 +10,7 @@
                 <div class="ts segments" [formGroup]="filterForm">
                     <div class="ts segment">
                         <div class="ts icon input">
-                            <input type="text" placeholder="搜尋..." formControlName="stationName" (change)="filterAndPagging(this)">
+                            <input type="text" placeholder="搜尋..." formControlName="stationName" (change)="changePage(this, 1)">
                             <i class="search icon"></i>
                         </div>
                     </div>
