@@ -7,10 +7,10 @@
     <div class="ts narrow container" style="margin-top: 20px;">
         <div class="ts stackable grid">
             <div class="four wide column">
-                <div class="ts segments">
+                <div class="ts segments" [formGroup]="filterForm">
                     <div class="ts segment">
                         <div class="ts icon input">
-                            <input type="text" placeholder="搜尋...">
+                            <input type="text" placeholder="搜尋..." formControlName="stationName" (change)="filterAndPagging(this)">
                             <i class="search icon"></i>
                         </div>
                     </div>
@@ -51,7 +51,7 @@
             </div>
             <div class="twelve wide column">
                 <p>共有 <span class="station-count">{{ currentCount }}</span> 個腳踏車站...</p>
-                <div *ngFor="let item of paggingItems" class="ts segment">
+                <div *ngFor="let item of paggingItems" class="ts segment clickable">
                     <div class="ts stackable grid">
                         <div class="stretched column">
                             <p><b>{{ item.stationName }}</b></p>

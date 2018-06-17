@@ -3,6 +3,7 @@ import { HttpRequestService } from '../shared-service/http-request.service';
 import { ApiConfigService } from '../shared-service/api-config.service';
 import { parseString } from 'xml2js';
 import { StationModel } from './station-model';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 declare var ts: any;
 
@@ -15,7 +16,8 @@ export class FilterComponent {
 
     constructor(@Inject(HttpRequestService) private httpService: HttpRequestService,
                 @Inject(ApiConfigService) private apiConfig: ApiConfigService,
-                @Inject(Renderer2) private renderer: Renderer2) { }
+                @Inject(Renderer2) private renderer: Renderer2,
+                @Inject(FormBuilder)private fb: FormBuilder) { }
 
     @ViewChild("pLoader") pageLoader: ElementRef;
 
@@ -28,6 +30,14 @@ export class FilterComponent {
     public currentCount: number = 0;
 
     public filterLocation;
+
+    public filterForm: FormGroup;
+
+    ngOnInit() {
+        this.filterForm = this.fb.group({
+            stationName: ''
+        });
+    }
 
     ngAfterViewInit() {
         ts('.ts.dropdown:not(.basic)').dropdown();
@@ -70,6 +80,11 @@ export class FilterComponent {
     private filterAndPagging(ref: any) {
         // Filter
         ref.filterItems = ref.items;
+
+        let filterStationName = this.filterForm.controls.stationName;
+        if (filterStationName != null && filterStationName.value != "") {
+            ref.filterItems = ref.filterItems.filter(x => x.stationName.indexOf(filterStationName.value) != -1);
+        }
 
         // create pagging item
         let totalPageCount = 
