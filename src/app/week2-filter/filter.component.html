@@ -1,0 +1,83 @@
+<div class="cover-all">
+    <div class="ts fluid top attached horizontally scrollable primary borderless menu">
+        <div class="ts narrow container">
+            <a class="item"><i class="icon bicycle"></i>Kaohsiung CityBike</a>
+        </div>
+    </div>
+    <div class="ts narrow container" style="margin-top: 20px;">
+        <div class="ts stackable grid">
+            <div class="four wide column">
+                <div class="ts segments">
+                    <div class="ts segment">
+                        <div class="ts icon input">
+                            <input type="text" placeholder="搜尋...">
+                            <i class="search icon"></i>
+                        </div>
+                    </div>
+                    <div class="ts segment">
+                        <div class="header">行政區</div>
+                        <br>
+                        <div class="ts floating dropdown labeled icon button">
+                            <i class="add icon"></i>
+                            <span class="text">新增行政區</span>
+                            <div class="menu">
+                                <div class="item">
+                                    左營區
+                                </div>
+                                <div class="item">
+                                    鼓山區
+                                </div>
+                                <div class="item">
+                                    三民區
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ts segment">
+                        <b>狀態</b>
+                        <br>
+                        <div class="ts checkboxes">
+                            <div class="ts checkbox">
+                                <input type="checkbox" id="hasBike">
+                                <label for="hasBike">可借用</label>
+                            </div>
+                            <div class="ts checkbox">
+                                <input type="checkbox" id="hasSpace">
+                                <label for="hasSpace">可還車</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="twelve wide column">
+                <p>共有 <span class="station-count">{{ currentCount }}</span> 個腳踏車站...</p>
+                <div *ngFor="let item of paggingItems" class="ts segment">
+                    <div class="ts stackable grid">
+                        <div class="stretched column">
+                            <p><b>{{ item.stationName }}</b></p>
+                            <p><i class="icon map pin"></i>{{ item.stationAddress }}</p>
+                        </div>
+                        <div class="column">
+                            <div class="ts small positive statistic">
+                                <div class="value">{{ item.stationBike }}</div>
+                                <div class="label">可借車輛</div>
+                            </div>
+                            <div class="ts small info statistic">
+                                <div class="value">{{ item.stationSpace }}</div>
+                                <div class="label">可停車位</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ts evenly divided horizontally scrollable menu">
+                    <a class="item" *ngFor="let page of totalPage" [ngClass]="{'active' : page == currentPage }" (click)="changePage(this, page)">
+                        {{ page }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ts dimmer" #pLoader>
+        <div class="ts loader"></div>
+    </div>
+</div>

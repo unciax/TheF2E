@@ -1,0 +1,25 @@
+.cover-all {
+    height: 100%;
+}
+
+.ts.segment {
+    cursor: pointer;
+}
+
+/* .ts.segment {
+    padding: 0;
+} */
+
+.ts.segment:hover {
+    z-index: 3;
+    box-shadow: 0px 1px 2px 0px #BCBDBD;
+    transform: translateY(-2px);
+}
+
+.station-count {
+    color: #79A8B9;
+}
+
+/* .ts.segment > .ts.stackable.grid > .column:not(.img) {
+    padding: 1em;
+} */

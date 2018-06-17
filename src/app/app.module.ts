@@ -13,6 +13,7 @@ import { ApiConfigService } from './shared-service/api-config.service';
 import { HttpRequestService } from './shared-service/http-request.service';
 import { SignupCheckComponent } from './week0-signup-check/signup-check.component';
 import { TodoListComponent } from './week1-todo-list/todo-list.component';
+import { FilterComponent } from './week2-filter/filter.component';
 
 
 registerLocaleData(localeZhHant, 'zh-TW');
@@ -23,7 +24,8 @@ registerLocaleData(localeZhHant, 'zh-TW');
         AppComponent,
         ShowCaseComponent,
         SignupCheckComponent,
-        TodoListComponent
+        TodoListComponent,
+        FilterComponent
     ],
     imports: [
         BrowserModule,
