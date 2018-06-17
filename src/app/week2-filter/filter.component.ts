@@ -77,7 +77,7 @@ export class FilterComponent {
             ref.items = ref.items.concat(item);
         }
     }
-    private filterAndPagging(ref: any) {
+    public filterAndPagging(ref: any) {
         // Filter
         ref.filterItems = ref.items;
 
