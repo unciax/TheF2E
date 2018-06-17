@@ -22,6 +22,10 @@ export class ShowCaseComponent {
             week: 1,
             subject: "待辦清單",
             code: "todo_list"
+        },{
+            week: 2,
+            subject: "篩選器",
+            code: "filter"
         }];
     }
 
