@@ -58,11 +58,11 @@
                             <p><i class="icon map pin"></i>{{ item.stationAddress }}</p>
                         </div>
                         <div class="column">
-                            <div class="ts small positive statistic">
+                            <div class="ts small statistic" [ngClass]="{ 'positive': item.stationBike > 0, 'negative': item.stationBike == 0 }">
                                 <div class="value">{{ item.stationBike }}</div>
                                 <div class="label">可借車輛</div>
                             </div>
-                            <div class="ts small info statistic">
+                            <div class="ts small statistic" [ngClass]="{ 'info': item.stationSpace > 0, 'negative': item.stationSpace == 0 }">
                                 <div class="value">{{ item.stationSpace }}</div>
                                 <div class="label">可停車位</div>
                             </div>
