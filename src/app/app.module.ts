@@ -4,6 +4,7 @@ import { HttpModule } from '@angular/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { registerLocaleData } from '@angular/common';
 import localeZhHant from '@angular/common/locales/zh-Hant'
+import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -14,6 +15,9 @@ import { HttpRequestService } from './shared-service/http-request.service';
 import { SignupCheckComponent } from './week0-signup-check/signup-check.component';
 import { TodoListComponent } from './week1-todo-list/todo-list.component';
 import { FilterComponent } from './week2-filter/filter.component';
+import { DashboardComponent } from './week3-dashboard/dashboard.component';
+import { OverviewComponent } from './week3-dashboard/overview.component';
+import { ChartComponent } from './week3-dashboard/chart.component';
 
 
 registerLocaleData(localeZhHant, 'zh-TW');
@@ -25,13 +29,17 @@ registerLocaleData(localeZhHant, 'zh-TW');
         ShowCaseComponent,
         SignupCheckComponent,
         TodoListComponent,
-        FilterComponent
+        FilterComponent,
+        DashboardComponent,
+        OverviewComponent,
+        ChartComponent
     ],
     imports: [
         BrowserModule,
         HttpModule,
         ReactiveFormsModule,
-        AppRoutingModule
+        AppRoutingModule,
+        ChartsModule
     ],
     providers: [
         ApiConfigService,

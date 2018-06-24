@@ -1,0 +1,171 @@
+<div class="ts stackable grid">
+    <div class="stretched column">
+        <h3>Overview</h3>
+    </div>
+    <div class="column">
+        2018/6/6 <i class="fas fa-caret-right"></i> 2018/6/13
+        <div class="ts floating dropdown icon secondary button">
+            <span class="text">Weekly</span>
+            <i class="caret down icon"></i>
+            <div class="menu">
+                <div class="item">
+                    Daily
+                </div>
+                <div class="active item">
+                    Weekly
+                </div>
+                <div class="item">
+                    Monthly
+                </div>
+                <div class="item">
+                    Yearly
+                </div>
+                <div class="item">
+                    Custom
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+<div class="ts stackable three cards">
+    <div class="ts card">
+        <div class="content">
+            <div class="ts positive statistic">
+                <div class="label">TOTAL REVENUE</div>
+                <div class="value">54,540</div>
+            </div>
+        </div>
+        <div class="symbol">
+            <i class="dollar icon"></i>
+        </div>
+    </div>
+    <div class="ts card">
+        <div class="content">
+            <div class="ts negative statistic">
+                <div class="label">TOTAL COST</div>
+                <div class="value">12,660</div>
+            </div>
+        </div>
+        <div class="symbol">
+            <i class="cubes icon"></i>
+        </div>
+    </div>
+    <div class="ts card">
+        <div class="content">
+            <div class="ts primary statistic">
+                <div class="label">NET INCOME</div>
+                <div class="value">41,880</div>
+            </div>
+        </div>
+        <div class="symbol">
+            <i class="money icon"></i>
+        </div>
+    </div>
+</div>
+<div class="ts card">
+    <div class="content">
+        <div class="header">Activity</div>
+        <div class="description">
+            <chart></chart>
+        </div>
+    </div>
+</div>
+<div class="ts stackable two cards">
+    <div class="ts card">
+        <div class="content">
+            <div class="header">Transaction Website</div>
+            <div class="description">
+                <div class="custom items">
+                    <div *ngFor="let site of sites" class="item">
+                        <div class="ts stackable grid">
+                            <div class="eight wide column">
+                                <i class="big icon" [ngClass]="site.siteIconCode"></i>
+                                {{ site.siteName }}
+                            </div>
+                            <div class="eight wide column">
+                                <div class="ts two grid">
+                                    <div class="eight wide right aligned value column">
+                                        <i class="big hidden icon"></i>
+                                        {{ site.siteValue | currency:' ':'symbol':'1.0-0' }}
+                                    </div>
+                                    <div class="veight wide alue column" [ngClass]="{'positive': site.diffValue > 0, 'negative': (site.diffValue < 0)}" data-tooltip-position="top center" [attr.data-tooltip]="(site.diffValue > 0 ? 'INCREASE ' + site.diffValue : 'DECREASE ' + (0-site.diffValue)) + ' VIEWS (last week:' + (site.siteValue - site.diffValue) + ')'">
+                                        <i class="big hidden icon"></i>
+                                        <i class="arrow icon" [ngClass]="{'up': site.diffValue > 0, 'down': (site.diffValue < 0)}"></i>
+                                        {{ (site.diffValue > 0 ? site.diffValue / (site.siteValue - site.diffValue) * 100 : 0-site.diffValue / (site.siteValue - site.diffValue) * 100) | number:'1.0-1'}}%
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ts card">
+        <div class="content">
+            <div class="header">Latest Orders</div>
+            <div class="description">
+                <div class="ts single line divided items">
+                    <div class="item">
+                        <div class="ts tiny image">
+                            <img src="./assets/poppin_party.jpg">
+                        </div>
+                        <div class="content">
+                            <div class="header">
+                                バンドリ!「Yes! BanG Dream!」(初回限定盤)(Blu-ray Disc付)
+                            </div>
+                            <div class="meta">
+                                <span><i class="clock icon"></i>2018-06-13 22:00</span><br/>
+                            </div>
+                            <div class="extra">
+                                <span><i class="user icon"></i>qwer1234</span>
+                            </div>
+                        </div>
+                        <div class="right aligned bottom aligned actions">
+                            <span>Total<br/><b>3,200</b></span>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="ts tiny image">
+                            <img src="./assets/roselia.jpg">
+                        </div>
+                        <div class="content">
+                            <div class="header">
+                                ONENESS(初回限定盤)(Blu-ray Disc付)
+                            </div>
+                            <div class="meta">
+                                <span><i class="clock icon"></i>2018-06-13 22:00</span>
+                            </div>
+                            <div class="extra">
+                                <span><i class="user icon"></i>TEST 1</span>
+                            </div>
+                        </div>
+                        <div class="right aligned bottom aligned actions">
+                            <span>Total<br/><b>3,200</b></span>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="ts tiny image">
+                            <img src="./assets/pastel_palettes.jpg">
+                        </div>
+                        <div class="content">
+                            <div class="header">
+                                しゅわりん☆どり~みん
+                            </div>
+                            <div class="meta">
+                                <span><i class="clock icon"></i>2018-06-13 22:00</span>
+                            </div>
+                            <div class="extra">
+                                <span><i class="user icon"></i>TEST 1</span>
+                            </div>
+                        </div>
+                        <div class="right aligned bottom aligned actions">
+                            <span>Total<br/><b>3,200</b></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

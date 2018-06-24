@@ -1,0 +1,40 @@
+.ts.items > .item > .icon:not(.inverted) {
+    background: none;
+}
+
+.ts.items > .item > [class*="middle aligned"].content {
+    align-self: center;
+}
+
+.big.icon.hidden {
+    width: 0px;
+}
+
+.column.value:not(i) {
+    font-size: 1.2em;
+}
+
+.column.positive {
+    color: #8BB96E;
+}
+
+.column.negative {
+    color: #CE5F58;
+}
+
+.custom.items > .item {
+    border-top: 1px solid #e9e9e9;
+    margin: 0em;
+    padding: 1em 0em;
+}
+
+.custom.items > .item:first-child {
+    border-top: none;
+    margin-top: 0em !important;
+    padding-top: 0em !important;
+}
+
+.custom.items > .item:last-child {
+    margin-bottom: 0em !important;
+    padding-bottom: 0em !important;
+}

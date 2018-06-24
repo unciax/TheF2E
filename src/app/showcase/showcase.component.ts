@@ -26,6 +26,10 @@ export class ShowCaseComponent {
             week: 2,
             subject: "篩選器",
             code: "filter"
+        },{
+            week: 3,
+            subject: "訂單管理系統",
+            code: "dashboard"
         }];
     }
 
