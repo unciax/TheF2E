@@ -18,6 +18,7 @@ import { FilterComponent } from './week2-filter/filter.component';
 import { DashboardComponent } from './week3-dashboard/dashboard.component';
 import { OverviewComponent } from './week3-dashboard/overview.component';
 import { ChartComponent } from './week3-dashboard/chart.component';
+import { ValidationComponent } from './week6-validation/validation.component';
 
 
 registerLocaleData(localeZhHant, 'zh-TW');
@@ -32,7 +33,8 @@ registerLocaleData(localeZhHant, 'zh-TW');
         FilterComponent,
         DashboardComponent,
         OverviewComponent,
-        ChartComponent
+        ChartComponent,
+        ValidationComponent
     ],
     imports: [
         BrowserModule,

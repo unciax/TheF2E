@@ -1,0 +1,54 @@
+<div class="cover-all">
+    <div class="top margin">&nbsp;</div>
+    <div class="ts narrow container">
+        <div class="ts tiny fluid steps">
+            <div class="step" [ngClass]="{'active' : currentStep === 0, 'completed' : currentStep > 0}">
+                <i class="add user icon"></i>
+            </div>
+            <div class="step" [ngClass]="{'active' : currentStep === 1, 'completed' : currentStep > 1}">
+                <i class="notice icon"></i>
+            </div>
+            <div class="step" [ngClass]="{'active' : currentStep === 2, 'completed' : currentStep > 2}">
+                <i class="upload icon"></i>
+            </div>
+            <div class="step" [ngClass]="{'active' : currentStep === 3, 'completed' : currentStep > 3}">
+                <i class="payment icon"></i>
+            </div>
+        </div>
+        <div class="header centered">
+            <span class="title">{{ step[currentStep].title }}</span><br/>
+            <span class="sub-title">{{ step[currentStep].subTitle }}</span>
+        </div>
+        <div class="ts form" *ngIf="currentStep === 0"  [formGroup]="accountForm">
+            <div class="field" [ngClass]="accountForm.controls.account.touched && accountForm.controls.account.invalid ? 'error' : ''">
+                <label>Account</label>
+                <input formControlName="account">
+                <span style="color: #CE5F58;" *ngIf="accountForm.controls.account.touched && accountForm.controls.account.invalid">INVALID EMAIL</span>
+            </div>
+            <div class="field" [ngClass]="accountForm.controls.password.touched && accountForm.controls.password.invalid ? 'error' : ''">
+                <label>Password</label>
+                <input type="password" formControlName="password">
+                <span style="color: #CE5F58;" *ngIf="accountForm.controls.password.touched && accountForm.controls.password.invalid">MINIMUM 8 CHARACTERS</span>
+            </div>
+            <div class="field" [ngClass]="accountForm.controls.confirmPassword.touched && accountForm.controls.confirmPassword.invalid ? 'error' : ''">
+                <label>Comfirm Password</label>
+                <input type="password" formControlName="confirmPassword">
+                <span style="color: #CE5F58;" *ngIf="accountForm.controls.confirmPassword.touched && accountForm.controls.confirmPassword.invalid">NOT MATCH</span>
+            </div>
+            <button class="ts primary button" [ngClass]="{'disabled': accountForm.invalid, 'pulsing': !accountForm.invalid}" (click)="nextStep(1)">SUBMIT & NEXT</button>
+        </div>
+        <div *ngIf="currentStep === 1">
+
+        </div>
+        <div *ngIf="currentStep === 2">
+
+        </div>
+        <div *ngIf="currentStep === 3">
+
+        </div>
+    </div>
+
+    <div class="ts dimmer" #pLoader>
+        <div class="ts loader"></div>
+    </div>
+</div>

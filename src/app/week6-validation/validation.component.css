@@ -1,0 +1,22 @@
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,300i');
+* {
+    font-family: Roboto;
+}
+
+.ts.tiny.steps .step, .ts.tiny.step {
+    font-size: .85714rem !important;
+}
+
+.title {
+    font-size: 48px;
+}
+
+.sub-title {
+    font-size: 24px;
+}
+
+.header.centered {
+    line-height: 2rem;
+    text-align: center;
+}

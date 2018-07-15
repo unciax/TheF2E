@@ -30,6 +30,10 @@ export class ShowCaseComponent {
             week: 3,
             subject: "訂單管理系統",
             code: "dashboard"
+        },{
+            week: 6,
+            subject: "驗證",
+            code: "validation"
         }];
     }
 

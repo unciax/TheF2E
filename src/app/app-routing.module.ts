@@ -5,6 +5,7 @@ import { SignupCheckComponent } from './week0-signup-check/signup-check.componen
 import { TodoListComponent } from './week1-todo-list/todo-list.component';
 import { FilterComponent } from './week2-filter/filter.component';
 import { DashboardComponent } from './week3-dashboard/dashboard.component';
+import { ValidationComponent } from './week6-validation/validation.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'showcase', pathMatch: 'full' },
@@ -12,7 +13,8 @@ const routes: Routes = [
     { path: 'signup_check', component:SignupCheckComponent, data: {title: 'Week 0: 檢查報名狀態'} },
     { path: 'todo_list', component:TodoListComponent, data: {title: 'Week 1: 待辦清單'} },
     { path: 'filter', component:FilterComponent, data: {title: 'Week 2: 篩選器'}},
-    { path: 'dashboard', component:DashboardComponent, data: {title: 'Week 3: 訂單管理系統'}}
+    { path: 'dashboard', component:DashboardComponent, data: {title: 'Week 3: 訂單管理系統'}},
+    { path: 'validation', component:ValidationComponent, data: {title: 'Week 6: 驗證'}},
 ];
 
 @NgModule({
