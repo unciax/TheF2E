@@ -37,8 +37,60 @@
             </div>
             <button class="ts primary button" [ngClass]="{'disabled': accountForm.invalid, 'pulsing': !accountForm.invalid}" (click)="nextStep(1)">SUBMIT & NEXT</button>
         </div>
-        <div *ngIf="currentStep === 1">
-
+        <div class="ts form" *ngIf="currentStep === 1"  [formGroup]="infoForm">
+            <div class="two fields">
+                <div class="field">
+                    <label>Name (optional)</label>
+                    <input formControlName="name">
+                </div>
+                <div class="field" [ngClass]="infoForm.controls.phone.touched && infoForm.controls.phone.invalid ? 'error' : ''">
+                    <label>Phone *</label>
+                    <input formControlName="phone">
+                    <span style="color: #CE5F58;" *ngIf="infoForm.controls.phone.touched && infoForm.controls.phone.invalid">INVALID PHONE NUMBER</span>
+                </div>
+            </div>
+            <div class="field">
+                <label>Birthday (optional)</label>
+                <input type="date" formControlName="birthday">
+            </div>
+            <div class="two fields">
+                <div class="field">
+                    <label>Address</label>
+                    <select class="ts basic dropdown" formControlName="city">
+                        <option>Koahsiung City</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label>&nbsp;</label>
+                    <select class="ts basic dropdown" formControlName="district">
+                        <option>Yancheng Dist</option>
+                        <option>Gushan Dist</option>
+                        <option>Zuoying Dist</option>
+                        <option>Nanzi Dist</option>
+                        <option>Sanmin Dist</option>
+                        <option>Xinxing Dist</option>
+                        <option>Qianjin Dist</option>
+                        <option>Lingya Dist</option>
+                        <option>Qianzhen Dist</option>
+                        <option>Qijin Dist</option>
+                        <option>Xiaogang Dist</option>
+                        <option>Fengshan Dist</option>
+                        <option>Linyuan Dist</option>
+                        <option>Daliao Dist</option>
+                        <option>Dashu Dist</option>
+                        <option>Dashe Dist</option>
+                        <option>Renwu Dist</option>
+                        <option>Niaosong Dist</option>
+                        <option>Gangshan Dist</option>
+                        <option>Qiaotou Dist</option>
+                    </select>
+                </div>
+            </div>
+            <div class="field" [ngClass]="infoForm.controls.detailAddress.touched && infoForm.controls.detailAddress.invalid ? 'error' : ''">
+                <input formControlName="detailAddress">
+                <span style="color: #CE5F58;" *ngIf="infoForm.controls.detailAddress.touched && infoForm.controls.detailAddress.invalid">REQUIRED FILED</span>
+            </div>
+            <button class="ts primary button" [ngClass]="{'disabled': infoForm.invalid, 'pulsing': !infoForm.invalid}" (click)="nextStep(2)">SUBMIT & NEXT</button>
         </div>
         <div *ngIf="currentStep === 2">
 

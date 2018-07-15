@@ -27,8 +27,14 @@ export class ValidationComponent {
 
     ngOnInit() {
         this.accountForm = this.fb.group({
-            account: ['', [Validators.required, Validators.email]],
-            password: ['', [Validators.required, Validators.minLength(8)]],
+            account: ['', [
+                Validators.required, 
+                Validators.email
+            ]],
+            password: ['', [
+                Validators.required, 
+                Validators.minLength(8)
+            ]],
             confirmPassword: ['']
         });
         this.accountForm.controls.confirmPassword.setValidators(
@@ -37,6 +43,21 @@ export class ValidationComponent {
                 this.passwordConfirming(this.accountForm.controls.password)
             ]
         );
+        this.infoForm = this.fb.group({
+            name: ['', null],
+            phone: ['', [
+                Validators.required, 
+                Validators.pattern(/^09[0-9]{8}$/)
+            ]],
+            birthday: ['', null],
+            city: ['', null],
+            district: ['', null],
+            detailAddress: ['', [
+                Validators.required
+            ]],
+        });
+        this.infoForm.controls.city.setValue("Koahsiung City");
+        this.infoForm.controls.district.setValue("Yancheng Dist");
     }
 
     passwordConfirming(anotherControl: AbstractControl): ValidatorFn {
