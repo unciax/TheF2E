@@ -35,7 +35,7 @@
                 <input type="password" formControlName="confirmPassword">
                 <span style="color: #CE5F58;" *ngIf="accountForm.controls.confirmPassword.touched && accountForm.controls.confirmPassword.invalid">NOT MATCH</span>
             </div>
-            <button class="ts primary button" [ngClass]="{'disabled': accountForm.invalid, 'pulsing': !accountForm.invalid}" (click)="nextStep(1)">SUBMIT & NEXT</button>
+            <button class="ts primary fluid button" [ngClass]="{ 'disabled': accountForm.invalid }" (click)="nextStep(1)">SUBMIT & NEXT</button>
         </div>
         <div class="ts form" *ngIf="currentStep === 1"  [formGroup]="infoForm">
             <div class="two fields">
@@ -90,10 +90,10 @@
                 <input formControlName="detailAddress">
                 <span style="color: #CE5F58;" *ngIf="infoForm.controls.detailAddress.touched && infoForm.controls.detailAddress.invalid">REQUIRED FILED</span>
             </div>
-            <button class="ts primary button" [ngClass]="{'disabled': infoForm.invalid, 'pulsing': !infoForm.invalid}" (click)="nextStep(2)">SUBMIT & NEXT</button>
+            <button class="ts fluid primary button" [ngClass]="{ 'disabled': infoForm.invalid }" (click)="nextStep(2)">SUBMIT & NEXT</button>
         </div>
         <div *ngIf="currentStep === 2">
-
+            
         </div>
         <div *ngIf="currentStep === 3">
 
